@@ -12,8 +12,10 @@ import type { CarModel, Engine, Optional, Color, GetOptionalsResponse } from './
 import { mapOptionalsWithRules } from './utils/optionalRules';
 import useAuth from './hooks/useAuth';
 
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
+// Prende l'URL pulito e aggiunge /api solo se non è già presente
+const rawUrl = (import.meta.env.VITE_API_URL as string) || 'http://127.0.0.1:8000';
+const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl.replace(/\/$/, '')}/api`;
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token') || localStorage.getItem('auth_token'); 
   
